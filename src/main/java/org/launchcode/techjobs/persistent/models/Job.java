@@ -2,6 +2,8 @@ package org.launchcode.techjobs.persistent.models;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,16 +14,19 @@ public class Job extends AbstractEntity {
     private Employer employer;
 
     @ManyToMany
-    private List<Skill> skills = new ArrayList<>();
+    private List<Skill> skills;
+    @NotBlank(message = "Description cannot be left blank")
+    @Size(min = 1, max=300)
 
-
-    public Job() {
-    }
 
     public Job(Employer anEmployer, List<Skill> someSkills) {
         super();
         this.employer = anEmployer;
         this.skills = someSkills;
+    }
+
+    public Job() {
+
     }
 
     public Employer getEmployer() {
